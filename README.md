@@ -1,5 +1,7 @@
 # Mitochondria Analyzer
 
+[logo]: https://github.com/AhsenChaudhry/Mitochondria-Analyzer/blob/master/misc/MitoAnalyzer.PNG "Logo"
+
 Mitochondria Analyzer is a plugin for ImageJ/Fiji that enables quantitative analysis of mitochondrial morphology, dynamics, and function from confocal microscope acquired images of fluorescently labelled mitochondria.
 
 It entails a set of commands that allows for identifying mitochondrial objects from images through a validated pipeline of processing & thresholding, extraction of morphological and networking descriptors on a per-cell or per-mito basis, and simultaneous "morpho-functional" assessment of mitochondria co-stained with structural and functional probes.
