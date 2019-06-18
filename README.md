@@ -12,6 +12,7 @@ This plugin facilitates some of the key steps in an overall pipeline of image-ba
 * Commands to extract morphological and networking descriptors on a per-cell or per-mito basis
 * Ability to perform morpho-functional assessment by simultaneous morphologic quantification with functional probe intensity measurement
 * Commands to test and identify optimal processing and thresholding settings to maximize accuracy of threshold
+* Source code for commands are written in ImageJ macro language, allowing user to easily view and modify them as desired.
 * Support for automated batch processing of multiple images and folders
 * Optimized for axially thick cells
 
