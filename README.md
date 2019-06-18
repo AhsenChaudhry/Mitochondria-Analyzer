@@ -35,7 +35,8 @@ Add the Mitochondria Analyzer Update Site to download all required files and aut
 
 **Method 2**
 
-Download and open the MitochondriaAnalyzer.zip file and copy its contents to the ImageJ/FIJI “plugins” folder. This includes the MitochondriaAnalyzer folder as well as the dependent plugins listed above. 
+Download and open the MitochondriaAnalyzer.zip file and copy its contents to the ImageJ/FIJI “plugins” folder. This includes the MitochondriaAnalyzer folder as well as the dependent plugins listed above.
+*   Then download the opencv-windows-x86_64.jar file and paste into the plugins-> Adaptive Thresholding folder.
 *	The imagescience.jar file (required for the 3D ImageJ Suite) must be downloaded separately here [(Link)](https://imagescience.org/meijering/software/featurej/)
 
 ## Usage
