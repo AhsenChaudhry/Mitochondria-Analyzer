@@ -30,10 +30,13 @@ Add the Mitochondria Analyzer Update Site to download all required files and aut
 2)	Select ‘Manage Update Sites’
 3)	Select the checkboxes beside the following:
     1) 3D ImageJ Suite
-    2)	Press “Add Update Site’ at the bottom. This will create a new entry.
-    3)	Under ‘Name’ column, type in “MiochondriaAnalyzer”
-    4)	Under URL column, copy and paste this: http://sites.imagej.net/ACMito/
-    5)	Note: this also installs Adaptive Thresholding and Sigma Filter Plus
+    2) ImageScience
+    3) IJPB-Plugins
+        *   This contains MorphoLibJ
+4)	Press “Add Update Site’ at the bottom. This will create a new entry.
+5)	Under ‘Name’ column, type in “MitochondriaAnalyzer”
+6)	Under URL column, copy and paste this: http://sites.imagej.net/ACMito/
+    *	Note: this also installs Adaptive Thresholding and Sigma Filter Plus
 5)	Press ‘Close’, then press ‘Apply Changes’ in the ImageJ Updater window
 6)	Restart ImageJ, and the installation process should be complete.
 
