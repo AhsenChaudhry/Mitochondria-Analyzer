@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: June 3, 2019
+Last updated: July 1, 2019
 This macro performs a threshold on a 4D (xyzt) stack, meaning 3D stacks acquired over several time frames.
 */
 
@@ -23,7 +23,7 @@ macro TimeLapseThreshold3D
 	canSigma = true;
 	canEnhance = true;
 	canScaleEnhance = false;
-	slope = 1.5; //use a higher slope if want to capture more dim mitochondria
+	slope = 1.4; //use a higher slope if want to capture more dim mitochondria
 	scaleSlopeTo = 2.6;
 	scaleBegin = 0.5; //means the position corresponding to 60% of stack's height
 	scaleEnd = 0.8;
@@ -45,8 +45,9 @@ macro TimeLapseThreshold3D
 	method = methodChoices[0];
 
 	Dialog.create("3D TimeLapse (4D) Threshold");
-		Dialog.setInsets(0, 0, 0);
+		Dialog.setInsets(-5, 0, 0);
 	    Dialog.addMessage("This function will perform a threshold on a 4D input containing 3D stacks imaged over time.");
+		Dialog.setInsets(-5, 15, 0);
 		Dialog.addMessage("The selected input is: " + input);
 
 		Dialog.addMessage("Pre-processing commands:");
