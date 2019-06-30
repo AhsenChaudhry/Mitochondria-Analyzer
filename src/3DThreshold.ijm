@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: June 1, 2019
+Last updated: July 1, 2019
 This macro performs a threshold on a 3D stack using local threshold algorithms based on variants of mean-based thresholding.
 It takes two important parameters: block size (expressed as a diameter for Weighted Mean and as radius for the rest), and C-value.
 These parameters can be chosen using the Optimize Threshold macros.
@@ -34,7 +34,7 @@ macro Threshold3D
 	canSigma = true;
 	canEnhance = true;
 	canScaleEnhance = false;
-	slope = 1.5; //use a higher slope if want to capture more dim mitochondria
+	slope = 1.4; //use a higher slope if want to capture more dim mitochondria
 	scaleSlopeTo = 2.6;
 	scaleBegin = 0.5; //means the position corresponding to 60% of stack's height
 	scaleEnd = 0.8;
@@ -58,8 +58,9 @@ macro Threshold3D
 	if (regularMode)
 	{
 		Dialog.create("3D Threshold");
-			Dialog.setInsets(0, 0, 0);
+			Dialog.setInsets(-5, 0, 0);
 		    Dialog.addMessage("This function will perform a threshold on a 3D stack.");
+		    Dialog.setInsets(-5, 15, 0);
 			Dialog.addMessage("The selected image is: " + input);
 	
 			Dialog.addMessage("Pre-processing commands:");
@@ -205,7 +206,14 @@ macro Threshold3D
 							slopeM = ( (scaleSlopeTo-slope) / ( endS - startS ) );
 							slopeValue = slope + ( (i-startS)*slopeM);
 						}
-						run("Enhance Local Contrast (CLAHE)", "blocksize=64 histogram=256 maximum=" + slopeValue + " mask=*None* fast_(less_accurate)");
+						enhanceBS=64;
+						width = getWidth(); height = getHeight();
+						if (width<33 || height<33)
+						{
+							if (width<height) enhanceBS = (width*2)-1;
+							else enhanceBS = (height*2)-1;
+						}
+						run("Enhance Local Contrast (CLAHE)", "blocksize=" + enhanceBS + " histogram=256 maximum=" + slopeValue + " mask=*None* fast_(less_accurate)");
 					}
 				}	
 				//Gamma correction enhances recognition of dim mitochondria. For 2D this has been set to 0.8, whereas it is 0.9 in 3D
@@ -265,5 +273,28 @@ macro Threshold3D
 		File.close(tmpBatchFile);
 		runMacro(macroFolder + "3DAnalysis.ijm","Batch");
 	}
-    
+
+    //logThreshold();
+
+    function logThreshold()
+    {
+    	print(" ");
+    	print(input + " 3D Threshold Settings Log");
+    	print("Subtract Background? " +  canSubtract );
+		print("Rolling: " +   (rolling * pixelWidth));
+		print("Sigma Filter? " +  canSigma );
+		print("Enhance: " +  canEnhance );
+		print("Slope: " +  slope );
+		print("Scale Enhance? " +  canScaleEnhance );
+		print("Scale To: " +  scaleSlopeTo );
+		print("Scale begin: " +  scaleBegin );
+		print("Scale end: " +  scaleEnd );
+		print("Adjust Gamma: " +  canGamma );
+		print("Threshold Method: " +  method );
+		print("Block Size: " +  adaptiveSize );
+		print("Block Size: " +  (adaptiveSize*pixelWidth) );
+		print("Despeckle? " +  canDespeckle );
+		print("Remove Outliers? " +  canRemove );
+		print("3D Fill? " +  canFill );
+    }
 }
