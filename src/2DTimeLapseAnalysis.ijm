@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: June 15, 2019
+Last updated: July 1, 2019
 This macro performs analysis on a thresholded timelapse of 2D slices (xyt).
 */
 
@@ -30,12 +30,11 @@ macro TimeLapseAnalysis2D
 
 
 	Dialog.create("2D TimeLapse Analysis");
-		Dialog.setInsets(0, 0, 0);
+		Dialog.setInsets(-5, 0, 0);
 	    Dialog.addMessage("This function will perform morphological and networking analysis on a thresholded 2D TimeLapse (XYT) stack.");
-
-
+			Dialog.setInsets(-5, 15, 0);
 		    Dialog.addMessage("The selected image is: " + input);
-
+			Dialog.setInsets(2, 20, 0);
 		    Dialog.addCheckbox("Perform analysis on a per-cell basis?", doPerCell);
 
 			Dialog.setInsets(0, 35, 0);
@@ -69,7 +68,7 @@ macro TimeLapseAnalysis2D
 			listImages = getList("image.titles");
 			listImages = Array.concat(listImages,newArray("None"));
 			
-			Dialog.setInsets(15, 35, 0);
+			Dialog.setInsets(5, 35, 0);
 		    Dialog.addMessage("Multiple Channel Analysis for Simultaneous Functional Measurement - requires per-mito analysis");
 		    Dialog.setInsets(-5, 35, 0);
 			Dialog.addMessage("Will measure mean intensity + St. dev of regions corresponding to each mito object in the selected channels.");
