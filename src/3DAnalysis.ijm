@@ -1,10 +1,10 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: June 1, 2019
+Last updated: July 1, 2019
 This macro analyzes a thresholded 3D stack to obtain morphological and networking information.
 */
 
-macro Analysis3D_Test
+macro Analysis3D
 {
 	batchMode = false;
 	if (getArgument()=="Batch") batchMode=true;
@@ -55,11 +55,11 @@ macro Analysis3D_Test
 	if (batchMode==false)
 	{
 		Dialog.create("3D Analysis");
-			Dialog.setInsets(0, 0, 0);
+			Dialog.setInsets(-5, 0, 0);
 		    Dialog.addMessage("This function will perform morphological and networking analysis on a thresholded 3D stack.");
-	
+			Dialog.setInsets(-5, 15, 0);
 		    Dialog.addMessage("The selected image is: " + input);
-
+			Dialog.setInsets(2, 20, 0);
 		    Dialog.addCheckbox("Perform analysis on a per-cell basis?", doPerCell);
 
 			Dialog.setInsets(0, 35, 0);
@@ -91,7 +91,7 @@ macro Analysis3D_Test
 
 			listImages = getList("image.titles");
 			listImages = Array.concat(listImages,newArray("None"));
-			Dialog.setInsets(15, 35, 0);
+			Dialog.setInsets(5, 35, 0);
 		    Dialog.addMessage("Multiple Channel Analysis for Simultaneous Functional Measurement - requires per-mito analysis");
 		    Dialog.setInsets(-5, 35, 0);
 			Dialog.addMessage("Will measure weighted mean intensity of other channels for regions corresponding to each mito object.");
@@ -114,6 +114,7 @@ macro Analysis3D_Test
 			ratiometricChoices = newArray("Mask Channel","Second Channel","Third Channel","None");
 			Dialog.setInsets(0, 0, 0);
 			Dialog.addChoice("",ratiometricChoices, ratiometricChoices[3]);
+		//	Dialog.setInsets(-23, 150, 0);
 			Dialog.addChoice(" to: ",ratiometricChoices,ratiometricChoices[3]);
 			Dialog.addChoice("then to: ",ratiometricChoices, ratiometricChoices[3]);
 			
