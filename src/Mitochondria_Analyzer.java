@@ -136,9 +136,9 @@ public class Mitochondria_Analyzer implements PlugIn, ActionListener
        panel.add(new JLabel(" ",JLabel.CENTER ),c);
        c.gridwidth=1; 
        c.gridx=0; c.gridy=7;
-       panel.add(new JLabel("2D TimeLapse",JLabel.CENTER ),c);
+       panel.add(new JLabel("2D TimeLapse (xyt)",JLabel.CENTER ),c);
        c.gridx=1; c.gridy=7;
-       panel.add(new JLabel("3D TimeLapse (4D)",JLabel.CENTER ),c);
+       panel.add(new JLabel("3D TimeLapse (4D - xyzt)",JLabel.CENTER ),c);
 
        JButton button11 = new JButton("2D TimeLapse Threshold");
        button11.addActionListener(this);       
