@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: June 1, 2019
+Last updated: July 1, 2019
 This macro allows for batch thresholding and analysis of 3D stacks.
 */
 
@@ -53,9 +53,9 @@ macro NewBatch3D
 	Channel_1 = "None";
 
 	Dialog.create("3D Batch Threshold and Analysis");
-		Dialog.setInsets(0, 0, 0);
+		Dialog.setInsets(-5, 0, 0);
 	    Dialog.addMessage("This function allows for batch threshold and/or analysis on a folder of 3D stacks.");
-	    Dialog.setInsets(0, 0, 0);
+	    Dialog.setInsets(-5, 0, 0);
 	    Dialog.addMessage("Please begin by selecting threshold settings (this step can be omitted for folder of thresholded images).");
 	    Dialog.setInsets(5, 5, 0);
 	    Dialog.addCheckbox("Perform Batch 3D Threshold",true);
@@ -135,13 +135,12 @@ macro NewBatch3D
 	saveFile = Dialog.getCheckbox();
 
 	Dialog.create("3D Batch Threshold and Analysis");
-		Dialog.setInsets(0, 0, 0);
+		Dialog.setInsets(-5, 0, 0);
 	    Dialog.addMessage("Proceed by selecting analysis settings (this step can be omitted if only thresholding).");
-	    Dialog.setInsets(5, 5, 0);
+	    Dialog.setInsets(-5, 5, 0);
 	    Dialog.addCheckbox("Perform Batch 3D Analysis",true);
 	    
 	    Dialog.setInsets(0, 20, 0);
-		Dialog.addMessage("Analysis settings:");
 		Dialog.addCheckbox("Perform analysis on a per-cell basis?", doPerCell);
 
 		Dialog.setInsets(0, 35, 0);
@@ -171,11 +170,11 @@ macro NewBatch3D
 	    Dialog.setInsets(0, 40, 0);
 	    Dialog.addCheckboxGroup(2,4,mitoNetworkP,Array.fill(newArray(mitoNetworkP.length),true));
 		
-		Dialog.addMessage("");
+		Dialog.setInsets(5, 40, 0);
 		Dialog.addCheckbox("Multiple Channel Analysis?",false);
-	    Dialog.setInsets(-5, 35, 0);
+	    Dialog.setInsets(-5, 40, 0);
 		Dialog.addMessage("All channels should be combined in the same file, and requires per-mito analysis enabled");
-	    Dialog.setInsets(-5, 35, 0);
+	    Dialog.setInsets(-5, 40, 0);
 		Dialog.addMessage("Note: The selected mask channel will be used for the threholding step.");
 		Dialog.setInsets(0, 40, 0);
 		Dialog.addNumber("Morphological Mask Channel", 1);
