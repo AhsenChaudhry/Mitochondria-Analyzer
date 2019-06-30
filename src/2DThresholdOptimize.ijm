@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: June 1, 2019
+Last updated: July 1, 2019
 This macro performs a montage comparison of different threshold paramaters on a 2D slice.
 It takes two important parameters: block size (expressed as a diameter for Weighted Mean and as radius for the rest), and C-value.
 These values are empirically determined using this macro for each image set acquired and processed under similair conditions,
@@ -41,8 +41,9 @@ macro ThresholdOptimize2D
 	fontSize = 20;
 
 	Dialog.create("2D Threshold Optimize");
-		Dialog.setInsets(0, 0, 0);
+		Dialog.setInsets(-5, 0, 0);
 	    Dialog.addMessage("This function will test a range of threshold parameters on a 2D image to determine optimal settings\nby allowing visual comparison to the raw image.");
+		Dialog.setInsets(-5, 15, 0);
 		Dialog.addMessage("The selected image is: " + input);
 	
 		Dialog.addMessage("Pre-processing commands:");
