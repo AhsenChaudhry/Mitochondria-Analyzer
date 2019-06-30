@@ -48,3 +48,7 @@ Download and open the MitochondriaAnalyzer.zip file and copy its contents to the
 
 ## Usage
 Please refer to the Mitochondria Analyzer Manual and accompanying paper for guidance on use.
+
+## Notes
+For any bugs, issues, or concerns, please communicate these via GitHub or through the contact information specified in the Manual.
+No new major features or additions are planned for the planned for the plugin at this time.
