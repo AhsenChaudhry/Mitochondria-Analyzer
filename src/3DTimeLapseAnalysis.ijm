@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: June 3, 2019
+Last updated: July 1, 2019
 This macro performs analysis on a thresholded 4D (xyzt) stack, meaning 3D stacks acquired over several time frames.
 */
 
@@ -25,11 +25,13 @@ macro TimeLapseAnalysis3D
 	doPerMito = false;
 
 	Dialog.create("3D TimeLapse (4D) Analysis");
-		Dialog.setInsets(0, 0, 0);
+		Dialog.setInsets(-5, 0, 0);
 	    Dialog.addMessage("This function will perform morphological and networking analysis on a thresholded 3D TimeLapse (4D - xyzt) stack.");
-
+		
+Dialog.setInsets(-5, 15, 0);
 	    Dialog.addMessage("The selected input is: " + input);
 		
+	Dialog.setInsets(2, 20, 0);
 	   		Dialog.addCheckbox("Perform analysis on a per-cell basis?", doPerCell);
 
 			Dialog.setInsets(0, 35, 0);
@@ -58,11 +60,11 @@ macro TimeLapseAnalysis3D
 	    	Dialog.addMessage("Per-mito network descriptors:");
 		    Dialog.setInsets(0, 40, 0);
 		    Dialog.addCheckboxGroup(2,4,mitoNetworkP,Array.fill(newArray(mitoNetworkP.length),true));
-
 		    
+			Dialog.setInsets(5, 35, 0);
+		    Dialog.addMessage("Multiple Channel Analysis for Simultaneous Functional Measurement - requires per-mito analysis");    
 			listImages = getList("image.titles");
 			listImages = Array.concat(listImages,newArray("None"));
-		    Dialog.addMessage("");
 			Dialog.setInsets(0, 40, 0);
 			Dialog.addChoice("Mask Channel: ",listImages,listImages[listImages.length-1]);
 			Dialog.addToSameRow();
