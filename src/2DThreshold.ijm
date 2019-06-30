@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: June 1, 2019
+Last updated: July 1, 2019
 This macro performs a threshold on a single 2D slice using local threshold algorithms based on variants of mean-based thresholding.
 It takes in two important parameters: block size (expressed as a diameter for Weighted Mean and as radius for the rest), and C-value.
 These parameters can be chosen using the Optimize Threshold macros.
@@ -51,8 +51,9 @@ macro Threshold2D
 	if (regularMode)
 	{
 		Dialog.create("2D Threshold");
-			Dialog.setInsets(0, 0, 0);
+			Dialog.setInsets(-5, 0, 0);
 		    Dialog.addMessage("This function will perform a threshold on a 2D slice.");
+		    Dialog.setInsets(-5, 15, 0);
 			Dialog.addMessage("The selected image is: " + input);
 	
 			Dialog.addMessage("Pre-processing commands:");
@@ -162,7 +163,17 @@ macro Threshold2D
 				//Smooths object edges and improves contrast between signal and background noise. Essential for thresholding.
 				if (canSigma) run("Sigma Filter Plus", "radius=" + sRadius + " use=2.0 minimum=0.2 outlier stack");
 				//Enhances signal-to-noise contrast, great for areas of mitochondria with heterogenous intensity	
-				if (canEnhance) run("Enhance Local Contrast (CLAHE)", "blocksize=64 histogram=256 maximum=" + slope + " mask=*None*");
+				if (canEnhance)
+				{
+					width = getWidth(); height = getHeight();
+					enhanceBS=64;
+					if (width<33 || height<33)
+					{
+						if (width<height) enhanceBS = (width*2)-1;
+						else enhanceBS = (height*2)-1;
+					}
+					run("Enhance Local Contrast (CLAHE)", "blocksize=" + enhanceBS + " histogram=256 maximum=" + slope + " mask=*None*");
+				}
 				//Gamma correction enhances recognition of dim mitochondria. For 2D this has been set to 0.8, whereas it is 0.9 in 3D
 				//as we do not wish to capture mitochonrdria that are bleeding in from adjacent planes.
 				if (canGamma) run("Gamma...", "value=" + gamma + " stack");
@@ -220,4 +231,23 @@ macro Threshold2D
 		File.close(tmpBatchFile);
 		runMacro(macroFolder + "2DAnalysis.ijm","Batch");
 	}
+
+    //logThreshold();
+
+    function logThreshold()
+    {
+    	print(" ");
+    	print(input + " 2D Threshold Settings Log");
+    	print("Subtract Background? " +  canSubtract );
+		print("Rolling: " +   (rolling * pixelWidth));
+		print("Sigma Filter? " +  canSigma );
+		print("Enhance: " +  canEnhance );
+		print("Slope: " +  slope );
+		print("Adjust Gamma: " +  canGamma );
+		print("Threshold Method: " +  method );
+		print("Block Size: " +  (adaptiveSize*pixelWidth) );
+		print("Block Subtract: " +  adaptiveSubtract );
+		print("Despeckle? " +  canDespeckle );
+		print("Remove Outliers? " +  canRemove );
+    }
 }
