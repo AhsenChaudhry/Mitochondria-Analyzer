@@ -22,6 +22,7 @@ This plugin facilitates some of the key steps in an overall pipeline of image-ba
 
 ## Installation
 Requires the Fiji distribution of ImageJ.
+
 There are 2 methods for installation.
 
 **Method 1 (Preferred)**
