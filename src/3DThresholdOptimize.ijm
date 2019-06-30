@@ -18,7 +18,7 @@ macro ThresholdOptimize3D
 	canSigma = true;
 	canEnhance = true;
 	canScaleEnhance = false;
-	slope = 1.5; //use a higher slope if want to capture more dim mitochondria
+	slope = 1.4; //use a higher slope if want to capture more dim mitochondria
 	scaleSlopeTo = 2.6;
 	scaleBegin = 0.5; //means the position corresponding to 60% of stack's height
 	scaleEnd = 0.8;
@@ -49,8 +49,9 @@ macro ThresholdOptimize3D
 	fontSize = 20;
 
 	Dialog.create("3D Threshold Optimize");
-		Dialog.setInsets(0, 0, 0);
+		Dialog.setInsets(-5, 0, 0);
 	    Dialog.addMessage("This function will test a range of threshold parameters on a 3D stack to determine optimal settings\nby allowing visual comparison to the raw image.");
+		Dialog.setInsets(-5, 15, 0);
 		Dialog.addMessage("The selected image is: " + input);
 	
 		Dialog.addMessage("Pre-processing commands:");
