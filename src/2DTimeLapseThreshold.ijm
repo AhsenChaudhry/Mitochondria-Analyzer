@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: June 15, 2019
+Last updated: July 1, 2019
 This macro performs a threshold on a timelapse of 2D slices (xyt).
 */
 
@@ -33,8 +33,9 @@ macro TimeLapseThreshold2D
 	method = methodChoices[0];
 
 	Dialog.create("2D TimeLapse Threshold");
-		Dialog.setInsets(0, 0, 0);
+		Dialog.setInsets(-5, 0, 0);
 	    Dialog.addMessage("This function will perform a threshold on a timelapse of 2D slices (xyt stack).");
+	    Dialog.setInsets(-5, 15, 0);
 		Dialog.addMessage("The selected input is: " + input);
 
 		Dialog.addMessage("Pre-processing commands:");
