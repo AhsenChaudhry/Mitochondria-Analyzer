@@ -136,16 +136,16 @@ macro ThresholdOptimize2D
 				TransferSettings(adaptiveSize,adaptiveSubtract);
 				runMacro(macroFolder + "2DThreshold.ijm","Optimize");
 				rename(template + j + "-" + k);
-				drawString("Block Size (pixels) = " + adaptiveSize, 2, fontSize + 2, "black");
-		        drawString("Block Size (microns) = " + adaptiveSize*pixelWidth, 2, fontSize*2 + 4, "black");
+				drawString("Block Size (pixels) = " + adaptiveSize/pixelWidth, 2, fontSize + 2, "black");
+		        drawString("Block Size (microns) = " + adaptiveSize, 2, fontSize*2 + 4, "black");
 		        drawString("C value = " + adaptiveSubtract, 2, fontSize*3 + 6, "black");
 
 				selectWindow(input);
 				run("Duplicate...", "duplicate range=" + curSlice + "-" + curSlice);
 				inputTemp = input + "$$";
 				rename(inputTemp + j + "-" + k);
-				drawString("Block Size (pixels) = " + adaptiveSize, 2, fontSize + 2, "black");
-		        drawString("Block Size (microns) = " + adaptiveSize*pixelWidth, 2, fontSize*2 + 4, "black");
+				drawString("Block Size (pixels) = " + adaptiveSize/pixelWidth, 2, fontSize + 2, "black");
+		        drawString("Block Size (microns) = " + adaptiveSize, 2, fontSize*2 + 4, "black");
 		        drawString("C value = " + adaptiveSubtract, 2, fontSize*3 + 6, "black");
 			
 				if (k>0)
