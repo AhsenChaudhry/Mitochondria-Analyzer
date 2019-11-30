@@ -12,6 +12,7 @@ macro Analysis3D
 	input = getTitle();
 
 	setBatchMode(true);
+	
 	//Make sure input is a thresholded image before proceeding
 	run("Z Project...", "projection=[Max Intensity]");
 	getHistogram(values,counts,256);
@@ -216,8 +217,8 @@ macro Analysis3D
 			
 			//Do Morphological Analysis on colour coded Objects Map from previous step
 			selectWindow("Objects map of " + input);
-			run("Analyze Regions 3D", "volume surface_area mean_breadth sphericity euler_number centroid inertia_ellipsoid ellipsoid_elongations max._inscribed surface_area_method=[Crofton (13 dirs.)] euler_connectivity=C26");
-
+			run("Analyze Regions 3D", "volume surface_area mean_breadth sphericity euler_number surface_area_method=[Crofton (13 dirs.)] euler_connectivity=C26");
+			
 			mitoCount = Table.size("Objects-morpho");
 			
 			if (doPerCell)
@@ -259,6 +260,8 @@ macro Analysis3D
 				selectWindow("Objects map of " + input);
 				run("Duplicate...", "duplicate");
 				rename(input + " skeleton");
+				setThreshold(1, 255);
+				run("8-bit");
 				run("Skeletonize (2D/3D)");
 
 				//Calculate mean branch diameter
@@ -334,7 +337,8 @@ macro Analysis3D
 					run("Restore Selection");
 					run("Make Inverse");
 					run("Crop");	
-
+					getDimensions(w, h, c, s, f);
+					run("Canvas Size...", "width=" + (w+2) + " height=" + (h+2) + " position=Center zero");
 					run("Duplicate...", "duplicate");
 					run("Skeletonize (2D/3D)");
 					rename(input + "$t$ skeleton");
@@ -507,7 +511,7 @@ macro Analysis3D
 		selectWindow(image_original);
 		run("Duplicate...", "duplicate");
 		rename("tempedt");
-		run("3D Distance Map", "map=EDT image=tempedt Segmentation mask=None threshold=1");
+		run("3D Distance Map", "map=EDT image=tempedt Segmentation threshold=1");
 		Stack.getStatistics(count, mean, min, dMax, std); 
 		close("tempedt");
 
