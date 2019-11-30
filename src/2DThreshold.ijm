@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: July 1, 2019
+Last updated: November 28, 2019
 This macro performs a threshold on a single 2D slice using local threshold algorithms based on variants of mean-based thresholding.
 It takes in two important parameters: block size (expressed as a diameter for Weighted Mean and as radius for the rest), and C-value.
 These parameters can be chosen using the Optimize Threshold macros.
@@ -135,14 +135,24 @@ macro Threshold2D
     }	
 
 	setBatchMode(true);
-	
+
 		input = getTitle();
 		output = input + " thresholded";
-		cSlice = getSliceNumber();
-		if (Stack.isHyperstack==false) run("Duplicate...", "duplicate range=" + cSlice + "-" + cSlice);
+
+		getDimensions(width, height, channels, slices, frames);
+		Stack.getPosition(c,s,f);
+		
+		//cSlice = getSliceNumber();
+		if (Stack.isHyperstack==false)// run("Duplicate...", "duplicate range=" + cSlice + "-" + cSlice);
+		{
+			if (channels>1 && slices==1 && frames==1) run("Duplicate...", "duplicate channels=" + c + "-" + c);
+			if (channels==1 && slices>1 && frames==1) run("Duplicate...", "duplicate range=" + s + "-" + s);
+			if (channels==1 && slices==1 && frames>1) run("Duplicate...", "duplicate frames=" + f + "-" + f);
+			if (channels==1 && slices==1 && frames==1) run("Duplicate...", "duplicate range=" + s + "-" + s);
+		}
 		if (Stack.isHyperstack==true)
 		{
-			Stack.getPosition(c,s,f);
+			//Stack.getPosition(c,s,f);
 			run("Duplicate...", "duplicate channels=" + c + "-" + c + " slices=" + s + "-" + s + " frames=" + f + "-" + f );
 		}
 		rename(output);
