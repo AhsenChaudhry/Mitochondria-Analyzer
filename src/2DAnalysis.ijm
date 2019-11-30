@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: July 1, 2019
+Last updated: November 29, 2019
 This macro analyzes a thresholded 3D stack to obtain morphological and networking information.
 */
 
@@ -368,6 +368,8 @@ macro Analysis2D
 	
 					selectWindow(inputName + "$t$");
 					run("Crop");	
+					getDimensions(w, h, c, s, f);
+					run("Canvas Size...", "width=" + (w+2) + " height=" + (h+2) + " position=Center zero");
 					run("Duplicate...", "duplicate");
 					run("Skeletonize (2D/3D)");
 					rename(inputName + "$t$ skeleton");
@@ -613,6 +615,7 @@ macro Analysis2D
 		//Set background black pixels to NaN so they won't be calculated in mean distance value
 		run("Macro...", "code=[if (v==0) v=NaN] stack");
 		getStatistics(count, mean, min, dMax, std); 
+
 		//The mean distance of the skeleton from surface of object is radius, now multiply by 2
 		meanBD = mean*2;
 		if (isNaN(meanBD)) meanBD=0;
