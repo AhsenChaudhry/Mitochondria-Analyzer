@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: June 14, 2019
+Last updated: September 6, 2020
 This macro will add each mitochondrial object in 3D stacks to the ROI manager. The assigned number labels to the mitochondria 
 correspond to the results of the 3D Analysis command.
 */
@@ -9,6 +9,8 @@ macro Display3DMitoROI
 {
 	inputName = getTitle();
 	if (checkIfThresholded(inputName)==false) exit("Needs a thresholded input");
+	run("3D Manager");
+	selectWindow(inputName);
 	run("Select None");
 	
 	Stack.getDimensions(w, h, channels, slices, frames);
@@ -36,12 +38,16 @@ macro Display3DMitoROI
 	//mitoCount = Table.size("Results");
 	//close("Results");
 
-	run("3D Manager");
+
 	selectWindow("Objects map of " + inputName);
 	Ext.Manager3D_AddImage();	
+	Ext.Manager3D_DeselectAll();
+	Ext.Manager3D_LiveRoi();
+	Ext.Manager3D_DeselectAll();
+
+/*
 	mitoCount = Ext.Manager3D_Count(nb_obj);
-	
-	/* There is currently a bug in the 3D ImageJ Suite. A fix is being awaited.
+	print(mitoCount);
 	for (i = 0; i < mitoCount;i++)
 	{
 		Ext.Manager3D_Select(i);
@@ -49,13 +55,11 @@ macro Display3DMitoROI
 		newNum = i + 1;
 		Ext.Manager3D_Rename(newName );
 	}
-	*/
+*/	
+	Ext.Manager3D_DeselectAll();
+	
 	close("Objects map of " + inputName);
-
 	selectWindow(inputName);
-	Ext.Manager3D_DeselectAll();
-	wait(100);
-	Ext.Manager3D_DeselectAll();
 
 	
 	function checkIfThresholded (image)
