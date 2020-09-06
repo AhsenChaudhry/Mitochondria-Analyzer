@@ -1,9 +1,9 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: July 1, 2019
+Last updated: September 6, 2020
 This macro analyzes a thresholded 3D stack to obtain morphological and networking information.
 */
-
+	
 macro Analysis3D
 {
 	batchMode = false;
@@ -214,24 +214,28 @@ macro Analysis3D
 			sizeFilter = 0.05 / voxel;
 			run("3D Objects Counter", "threshold=50 slice=1 min.=" + sizeFilter + " max.=13369344 objects statistics summary");
 			close("Results");
-			
+	
 			//Do Morphological Analysis on colour coded Objects Map from previous step
 			selectWindow("Objects map of " + input);
 			run("Analyze Regions 3D", "volume surface_area mean_breadth sphericity euler_number surface_area_method=[Crofton (13 dirs.)] euler_connectivity=C26");
-			
-			mitoCount = Table.size("Objects-morpho");
-			
+			oMap = "Objects map of " + input;
+			morphoName = substring(oMap, 0, indexOf(oMap,".tif")) + "-morpho";
+			morphoName = replace(morphoName, " ", "");
+			mitoCount = Table.size(morphoName);
+
 			if (doPerCell)
 			{
 				//Get total SA, sphericity, and weighted sphericity (weighted to object volume)
 				for (i = 0;i < mitoCount;i++) 
 				{
-					TotalVolume += Table.get("Volume",i,"Objects-morpho");
-					TotalSA += Table.get("SurfaceArea",i,"Objects-morpho");
-					sphericity += Table.get("Sphericity",i,"Objects-morpho");
-					w_sphericity += ( (Table.get("Sphericity",i,"Objects-morpho")) * (Table.get("Volume",i,"Objects-morpho")));
+					TotalVolume += parseFloat(Table.get("Volume",i,morphoName));
+					TotalSA += parseFloat(Table.get("SurfaceArea",i,morphoName));
+					sphericity += parseFloat(Table.get("Sphericity",i,morphoName));
+					w_sphericity += ( parseFloat(Table.get("Sphericity",i,morphoName)) * parseFloat(Table.get("Volume",i,morphoName)));
 				}
 				sphericity /= mitoCount;
+				print(w_sphericity );
+				print(TotalVolume);
 				w_sphericity /= TotalVolume;
 			}
 	
@@ -243,14 +247,14 @@ macro Analysis3D
 				//Get total SA, sphericity, and weighted sphericity (weighted to object volume)
 				for (i = 0;i < mitoCount;i++) 
 				{
-					mitoVolume[i] += Table.get("Volume",i,"Objects-morpho");
-					mitoSA[i] = Table.get("SurfaceArea",i,"Objects-morpho");
-					mitoSphericity[i] = Table.get("Sphericity",i,"Objects-morpho");
-					//mito_w_sphericity[i] = ( (Table.get("Sphericity",i,"Objects-morpho")) * (Table.get("Volume",i,"Objects-morpho")));
+					mitoVolume[i] += parseFloat(Table.get("Volume",i,morphoName));
+					mitoSA[i] = parseFloat(Table.get("SurfaceArea",i,morphoName));
+					mitoSphericity[i] = parseFloat(Table.get("Sphericity",i,morphoName));
+					//mito_w_sphericity[i] = ( parseFloat(Table.get("Sphericity",i,morphoName)) * parseFloat(Table.get("Volume",i,morphoName)));
 				}
 			}
 			
-			close("Objects-morpho");
+			close(morphoName);
 
 		//Networking and skeleton analysis
 		if (enabledNetworkParameters.length>0)
@@ -278,7 +282,7 @@ macro Analysis3D
 				BranchLength = 0;
 				for (i = 0;i < nResult;i++) 
 				{
-					BranchLength += Table.get("Branch length",i,"Branch information");
+					BranchLength += parseFloat(Table.get("Branch length",i,"Branch information"));
 				}
 				close("Branch information");
 				if (isOpen("Tagged skeleton")) close("Tagged skeleton");
@@ -289,11 +293,11 @@ macro Analysis3D
 				skeletons = 0;
 				for (i = 0;i < nResult;i++) 
 				{
-					Branches += Table.get("# Branches",i,"Results");
-					BranchPoints += Table.get("# Junctions",i,"Results");
-					BranchEndPoints += Table.get("# End-point voxels",i,"Results");
+					Branches += parseInt(Table.get("# Branches",i,"Results"));
+					BranchPoints += parseInt(Table.get("# Junctions",i,"Results"));
+					BranchEndPoints += parseInt(Table.get("# End-point voxels",i,"Results"));
 					//Sphericals have a skeleton with zero branches, but we want to count them as a branch
-						if (Table.get("# Branches",i,"Results")==0) Branches++;
+						if (parseInt((Table.get("# Branches",i,"Results")))==0) Branches++;
 					skeletons++;
 				}
 				if (isOpen(input + " skeleton")) close(input + " skeleton");
@@ -335,7 +339,7 @@ macro Analysis3D
 					close();
 					selectWindow(input + "$t$");
 					run("Restore Selection");
-					run("Make Inverse");
+					//run("Make Inverse");
 					run("Crop");	
 					getDimensions(w, h, c, s, f);
 					run("Canvas Size...", "width=" + (w+2) + " height=" + (h+2) + " position=Center zero");
@@ -356,7 +360,7 @@ macro Analysis3D
 					nResult = Table.size("Branch information");
 					for (j = 0;j < nResult;j++) 
 					{
-						mitoBranchLength[i] += Table.get("Branch length",j,"Branch information");
+						mitoBranchLength[i] += parseFloat(Table.get("Branch length",j,"Branch information"));
 					}
 					
 					if (isOpen("Tagged skeleton")) close("Tagged skeleton");
@@ -366,12 +370,12 @@ macro Analysis3D
 					nResult = Table.size("Results");
 					for (j = 0;j < nResult;j++) 
 					{
-						mitoBranches[i] += Table.get("# Branches",j,"Results");
+						mitoBranches[i] += parseInt(Table.get("# Branches",j,"Results"));
 	
-						mitoBranchLongShort[i] += Table.get("Longest Shortest Path",j,"Results");
+						mitoBranchLongShort[i] += parseFloat(Table.get("Longest Shortest Path",j,"Results"));
 						if (mitoBranchLongShort[i]==0 && mitoBranchLength[i]>0) mitoBranchLongShort[i]=mitoBranchLength[i];
-						mitoBranchPoints[i] += Table.get("# Junctions",j,"Results");
-						mitoBranchEndPoints[i] += Table.get("# End-point voxels",j,"Results");
+						mitoBranchPoints[i] += parseInt(Table.get("# Junctions",j,"Results"));
+						mitoBranchEndPoints[i] += parseInt(Table.get("# End-point voxels",j,"Results"));
 					}
 					//Sphericals have a skeleton with zero branches, but we want to count them as a branch
 					if (mitoBranches[i]==0) mitoBranches[i]++;
@@ -613,8 +617,8 @@ macro Analysis3D
 		TotalArea=0;
 		for (m=0;m<nResult;m++)
 		{
-			weightedMeasure += (Table.get("Mean",m,"Results") * Table.get("Area",m,"Results"));
-			TotalArea += Table.get("Area",m,"Results");
+			weightedMeasure += (parseFloat(Table.get("Mean",m,"Results")) * parseFloat(Table.get("Area",m,"Results")));
+			TotalArea += parseFloat(Table.get("Area",m,"Results"));
 		}
 		weightedMeasure = weightedMeasure / TotalArea;
 		Table.reset("Results");
