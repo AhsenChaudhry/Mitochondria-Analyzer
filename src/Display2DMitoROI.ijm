@@ -32,7 +32,7 @@ macro Display2DMitoROI
 		run("Convert to Mask", "method=Default background=Dark black");
 		run("8-bit");
 		run("Create Selection");
-		run("Make Inverse");
+		//run("Make Inverse");
 		selectWindow(inputName);
 		run("Restore Selection");
 		roiManager("add");	
