@@ -1,7 +1,7 @@
 /*
 Author: Ahsen Chaudhry
 Last updated: September 6, 2020
-This macro analyzes a thresholded 3D stack to obtain morphological and networking information.
+This macro analyzes a thresholded 2D slice to obtain morphological and networking information.
 */
 
 //Global Variables
