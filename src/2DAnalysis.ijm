@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: July 1, 2019
+Last updated: September 6, 2020
 This macro analyzes a thresholded 3D stack to obtain morphological and networking information.
 */
 
@@ -233,10 +233,10 @@ macro Analysis2D
 		{
 			for (i = 0;i < mitoCount;i++)
 			{
-				TotalArea += Table.get("Area",i,"Results");
-				AR +=  Table.get("AR",i,"Results");
-				FF += 1/Table.get("Circ.",i,"Results");
-				TotalPerimeter += Table.get("Perim.",i,"Results");
+				TotalArea += parseFloat(Table.get("Area",i,"Results"));
+				AR +=  parseFloat(Table.get("AR",i,"Results"));
+				FF += (1/(parseFloat(Table.get("Circ.",i,"Results"))));
+				TotalPerimeter += parseFloat(Table.get("Perim.",i,"Results"));
 			}
 			AR = AR/mitoCount;
 			FF = FF/mitoCount;
@@ -250,10 +250,10 @@ macro Analysis2D
 		{
 			for (i = 0;i < mitoCount;i++)
 			{
-				mitoArea[i] = Table.get("Area",i,"Results");
-				mitoAR[i] =  Table.get("AR",i,"Results");
-				mitoFF[i] = 1/Table.get("Circ.",i,"Results");
-				mitoPerimeter[i] = Table.get("Perim.",i,"Results");
+				mitoArea[i] = parseFloat(Table.get("Area",i,"Results"));
+				mitoAR[i] =  parseFloat(Table.get("AR",i,"Results"));
+				mitoFF[i] = (1/(parseFloat(Table.get("Circ.",i,"Results"))));
+				mitoPerimeter[i] =  parseFloat(Table.get("Perim.",i,"Results"));
 			}
 		}
 		
@@ -280,7 +280,7 @@ macro Analysis2D
 				BranchLength = 0;
 				for (i = 0;i < nResult;i++) 
 				{
-					BranchLength += Table.get("Branch length",i,"Branch information");
+					BranchLength += parseFloat(Table.get("Branch length",i,"Branch information"));
 				}
 				if (isOpen("Tagged skeleton")) close("Tagged skeleton");
 				if (isOpen("Longest shortest paths")) close("Longest shortest paths");
@@ -290,11 +290,11 @@ macro Analysis2D
 				skeletons = 0;
 				for (i = 0;i < nResult;i++) 
 				{
-					Branches += Table.get("# Branches",i,"Results");
-					BranchPoints += Table.get("# Junctions",i,"Results");
-					BranchEndPoints += Table.get("# End-point voxels",i,"Results");
+					Branches += parseInt(Table.get("# Branches",i,"Results"));
+					BranchPoints += parseInt(Table.get("# Junctions",i,"Results"));
+					BranchEndPoints += parseInt(Table.get("# End-point voxels",i,"Results"));
 					//Sphericals have a skeleton with zero branches, but we want to count them as a branch
-						if (Table.get("# Branches",i,"Results")==0) Branches++;
+						if ((parseInt(Table.get("# Branches",i,"Results")))==0) Branches++;
 					skeletons++;
 				}
 				if (isOpen(inputName + " skeleton")) close(inputName + " skeleton");
@@ -327,7 +327,7 @@ macro Analysis2D
 					run("Convert to Mask", "method=Default background=Dark black");
 					run("8-bit");
 					run("Create Selection");
-					run("Make Inverse");
+					//run("Make Inverse");
 					/*
 					if (batchMode==false)
 					{
@@ -386,7 +386,7 @@ macro Analysis2D
 					nResult = Table.size("Branch information");
 					for (j = 0;j < nResult;j++) 
 					{
-						mitoBranchLength[i] += Table.get("Branch length",j,"Branch information");
+						mitoBranchLength[i] += parseFloat(Table.get("Branch length",j,"Branch information"));
 					}
 					
 					if (isOpen("Tagged skeleton")) close("Tagged skeleton");
@@ -396,12 +396,12 @@ macro Analysis2D
 					nResult = Table.size("Results");
 					for (j = 0;j < nResult;j++) 
 					{
-						mitoBranches[i] += Table.get("# Branches",j,"Results");
+						mitoBranches[i] += parseInt(Table.get("# Branches",j,"Results"));
 						//Sphericals have a skeleton with zero branches, but we want to count them as a branch
-						mitoBranchLongShort[i] += Table.get("Longest Shortest Path",j,"Results");
+						mitoBranchLongShort[i] += parseFloat(Table.get("Longest Shortest Path",j,"Results"));
 						if (mitoBranchLongShort[i]==0 && mitoBranchLength[i]>0) mitoBranchLongShort[i]=mitoBranchLength[i];
-						mitoBranchEndPoints[i] += Table.get("# End-point voxels",j,"Results");
-						mitoBranchPoints[i] += Table.get("# Junctions",j,"Results");
+						mitoBranchEndPoints[i] += parseInt(Table.get("# End-point voxels",j,"Results"));
+						mitoBranchPoints[i] += parseInt(Table.get("# Junctions",j,"Results"));
 					}
 					if (mitoBranches[i]==0) mitoBranches[i]++;
 					close(inputName + "$t$ skeleton");
@@ -642,7 +642,7 @@ macro Analysis2D
 		{
 				selectWindow(thresh);
 				run("Create Selection");
-				run("Make Inverse");
+				//run("Make Inverse");
 	
 				selectWindow("Intensity-temp");
 				run("Restore Selection");
@@ -650,8 +650,8 @@ macro Analysis2D
 				nResult = Table.size("Results");
 				for (j = 0;j < nResult;j++) 
 				{
-					measure = Table.get("Mean",j,"Results");
-					measureSD = Table.get("StdDev",j,"Results");
+					measure = parseFloat(Table.get("Mean",j,"Results"));
+					measureSD = parseFloat(Table.get("StdDev",j,"Results"));
 				}
 			}
 		//close("Results");
@@ -692,7 +692,7 @@ macro Analysis2D
 			
 		selectWindow(thresh);
 		run("Create Selection");
-		run("Make Inverse");
+		//run("Make Inverse");
 	
 		selectWindow("Intensity-temp");
 		run("Restore Selection");
@@ -700,7 +700,7 @@ macro Analysis2D
 		nResult = Table.size("Results");
 		for (j = 0;j < nResult;j++) 
 		{
-			measureSD = Table.get("StdDev",j,"Results");
+			measureSD = parseFloat(Table.get("StdDev",j,"Results"));
 		}
 
 		Table.reset("Results");
