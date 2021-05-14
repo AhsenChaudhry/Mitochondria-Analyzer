@@ -217,7 +217,7 @@ macro Analysis3D
 	
 			//Do Morphological Analysis on colour coded Objects Map from previous step
 			selectWindow("Objects map of " + input);
-			run("Analyze Regions 3D", "volume surface_area mean_breadth sphericity euler_number surface_area_method=[Crofton (13 dirs.)] euler_connectivity=C26");
+			run("Analyze Regions 3D", "volume surface_area mean_breadth sphericity euler_number surface_area_method=[Crofton (13 dirs.)] euler_connectivity=26");
 			oMap = "Objects map of " + input;
 			morphoName = substring(oMap, 0, indexOf(oMap,".tif")) + "-morpho";
 			morphoName = replace(morphoName, " ", "");
