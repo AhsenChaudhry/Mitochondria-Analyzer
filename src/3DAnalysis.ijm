@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: September 6, 2020
+Last updated: May 23, 2021
 This macro analyzes a thresholded 3D stack to obtain morphological and networking information.
 */
 	
@@ -217,10 +217,13 @@ macro Analysis3D
 	
 			//Do Morphological Analysis on colour coded Objects Map from previous step
 			selectWindow("Objects map of " + input);
-			run("Analyze Regions 3D", "volume surface_area mean_breadth sphericity euler_number surface_area_method=[Crofton (13 dirs.)] euler_connectivity=C26");
+			run("Analyze Regions 3D", "volume surface_area mean_breadth sphericity euler_number surface_area_method=[Crofton (13 dirs.)] euler_connectivity=26");
+			morphoName = getInfo("window.title");
+			/*
 			oMap = "Objects map of " + input;
 			morphoName = substring(oMap, 0, indexOf(oMap,".tif")) + "-morpho";
 			morphoName = replace(morphoName, " ", "");
+			*/
 			mitoCount = Table.size(morphoName);
 
 			if (doPerCell)
@@ -234,8 +237,6 @@ macro Analysis3D
 					w_sphericity += ( parseFloat(Table.get("Sphericity",i,morphoName)) * parseFloat(Table.get("Volume",i,morphoName)));
 				}
 				sphericity /= mitoCount;
-				print(w_sphericity );
-				print(TotalVolume);
 				w_sphericity /= TotalVolume;
 			}
 	
