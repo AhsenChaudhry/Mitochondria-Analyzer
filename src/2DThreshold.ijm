@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: November 28, 2019
+Last updated: August 12, 2021
 This macro performs a threshold on a single 2D slice using local threshold algorithms based on variants of mean-based thresholding.
 It takes in two important parameters: block size (expressed as a diameter for Weighted Mean and as radius for the rest), and C-value.
 These parameters can be chosen using the Optimize Threshold macros.
@@ -44,6 +44,10 @@ macro Threshold2D
 
 	//Perform automatic analysis?
 	canAnalyze = false;
+
+	adaptiveSize = 0;
+	adaptiveSubtract = 0;
+
 	
 	methodChoices = newArray("Weighted Mean","Mean","Median","MidGrey");
 	method = methodChoices[0];
@@ -215,6 +219,7 @@ macro Threshold2D
 			
 		run("Grays");
 		run("Make Binary");
+		run("Invert LUT");
 			
 		if (showComparison==true)
 		{
