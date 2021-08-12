@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: July 1, 2019
+Last updated: August 12, 2021
 This macro allows for batch thresholding and analysis of 2D images.
 */
 
@@ -336,6 +336,7 @@ macro Batch2D
 		selectWindow(inputName);
 		if (isMultipleCh && channels>1) Stack.setChannel(Channel_mask);
 		if (toThreshold && !isThresholded) runMacro(macroFolder + "2DThreshold.ijm","Batch");
+		if (isOpen(inputName + " thresholded")) selectWindow(inputName + " thresholded");
 		if (toAnalyze) runMacro(macroFolder + "2DAnalysis.ijm","Batch");
 
 		if (!toThreshold && !toAnalyze) exit("No commands selected");
