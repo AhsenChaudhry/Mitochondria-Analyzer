@@ -39,6 +39,7 @@ Add the Mitochondria Analyzer Update Site to download all required files and aut
 5)	Under ‘Name’ column, type in “MitochondriaAnalyzer”
 6)	Under URL column, copy and paste this: http://sites.imagej.net/ACMito/
     *	Note: this also installs Adaptive Thresholding and Sigma Filter Plus
+    *	Note: For MacOS users, please install the updated adaptiveThr_.clss and opencv-macosx-x86_64.jar file from here: https://github.com/qztseng/imagej_plugins/tree/master/current
 5)	Press ‘Close’, then press ‘Apply Changes’ in the ImageJ Updater window
 6)	Restart ImageJ, and the installation process should be complete. Check if the downloaded files have been placed in the "Updates" folder in the main Fiji.app folder, and if so, transfer the contents in the "Updates" folder to the "Plugins" folder.
 
@@ -46,11 +47,13 @@ Add the Mitochondria Analyzer Update Site to download all required files and aut
 
 Download and open the MitochondriaAnalyzer.zip file and copy its contents to the ImageJ/FIJI “plugins” folder. This includes the MitochondriaAnalyzer folder as well as the dependent plugins listed above.
 *   Then download the opencv-windows-x86_64.jar file and paste into the plugins-> Adaptive Thresholding folder.
+*   Note: For MacOS users, please install the updated adaptiveThr_.clss and opencv-macosx-x86_64.jar file from here: https://github.com/qztseng/imagej_plugins/tree/master/current
 *	The imagescience.jar file (required for the 3D ImageJ Suite) must be downloaded separately here [(Link)](https://imagescience.org/meijering/software/featurej/)
 
 ## Usage
 Please refer to the Mitochondria Analyzer Manual and accompanying paper for guidance on use.
 
 ## Notes
+The plugin should now be compatible with MacOS systems as of April 2022.
 For any bugs, issues, or concerns, please communicate these via GitHub or through the contact information specified in the Manual.
 No new major features or additions are planned for the planned for the plugin at this time.
