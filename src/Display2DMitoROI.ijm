@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: June 14, 2019
+Last updated: April 27, 2022
 This macro will add each mitochondrial object in 2D slices to the ROI manager. The assigned number labels to the mitochondria 
 correspond to the results of the 2D Analysis command.
 */
@@ -19,8 +19,12 @@ macro Display2DMitoROI
 	run("ROI Manager...");
 	setBatchMode(true);
 	sizeFilter = 0.06;//microns^2
+	
+	run("Invert LUT");
 	run("Set Measurements...", "area perimeter shape redirect=None decimal=3");
 	run("Analyze Particles...", "size="+sizeFilter+"-Infinity show=[Count Masks] display clear");
+	selectWindow(inputName);
+	run("Invert LUT");
 	mitoCount = Table.size("Results");
 	close("Results");
 	for (i = 0; i < mitoCount;i++)
