@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: September 6, 2020
+Last updated: April 27, 2022
 This macro will add each mitochondrial object in 3D stacks to the ROI manager. The assigned number labels to the mitochondria 
 correspond to the results of the 3D Analysis command.
 */
