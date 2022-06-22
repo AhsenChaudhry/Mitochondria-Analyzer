@@ -1,12 +1,12 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: July 1, 2019
+Last updated: April 27, 2022
 This macro allows for batch thresholding and analysis of 3D stacks.
 */
 
 macro NewBatch3D
 {
-	macroFolder = getDirectory("plugins") + "MitochondriaAnalyzer\\Macros\\";
+	macroFolder = getDirectory("plugins") + "MitochondriaAnalyzer/Macros/";
 	inputD = getDirectory("Choose which folder to analyze:");
 	outputD = inputD; 
 	suffix = ".tif";
