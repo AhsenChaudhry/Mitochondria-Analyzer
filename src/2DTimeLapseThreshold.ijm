@@ -1,13 +1,13 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: July 1, 2019
+Last updated: April 27, 2022
 This macro performs a threshold on a timelapse of 2D slices (xyt).
 */
 
 macro TimeLapseThreshold2D
 {
 	input = getTitle();
-	macroFolder = getDirectory("plugins") + "MitochondriaAnalyzer\\Macros\\";
+	macroFolder = getDirectory("plugins") + "MitochondriaAnalyzer/Macros/";
 	
 	//The default block size is set to 1.25um, which is slightly larger than the upper-range of mitochondrial sizes
 	baseSize = 1.25;
