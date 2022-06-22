@@ -1,13 +1,13 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: July 1, 2019
+Last updated: April 27, 2022
 This macro performs a threshold on a 4D (xyzt) stack, meaning 3D stacks acquired over several time frames.
 */
 
 macro TimeLapseThreshold3D
 {
 	input = getTitle();
-	macroFolder = getDirectory("plugins") + "MitochondriaAnalyzer\\Macros\\";
+	macroFolder = getDirectory("plugins") + "MitochondriaAnalyzer/Macros/";
 
 	Stack.getDimensions(w, h, channels, slices, frames);
 	if (frames==1 || slices==1) exit("Input must be 4D (xyzt)");
