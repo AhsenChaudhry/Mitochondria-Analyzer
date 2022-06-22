@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: September 6, 2020
+Last updated: April 27, 2022
 This macro analyzes a thresholded 2D slice to obtain morphological and networking information.
 */
 
@@ -8,10 +8,10 @@ This macro analyzes a thresholded 2D slice to obtain morphological and networkin
 var intensityMean = 0;
 var intensitySD = 0;
 var perPixelSD = 0;
-
 macro Analysis2D
 {
 	batchMode = false;
+	setOption("BlackBackground", true);
 	if (getArgument()=="Batch") batchMode=true;
 	
 	//Make sure input is a thresholded image before proceeding
@@ -218,6 +218,7 @@ macro Analysis2D
 		run("Duplicate...", "duplicate");
 		rename(inputName);
 
+		//run("Invert LUT");
 		var mitoCount;
 		//2D analysis
 		sizeFilter = 0.06;//microns^2
