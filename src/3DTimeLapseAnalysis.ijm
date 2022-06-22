@@ -1,12 +1,12 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: July 1, 2019
+Last updated: April 27, 2022
 This macro performs analysis on a thresholded 4D (xyzt) stack, meaning 3D stacks acquired over several time frames.
 */
 
 macro TimeLapseAnalysis3D
 {
-	macroFolder = getDirectory("plugins") + "MitochondriaAnalyzer\\Macros\\";
+	macroFolder = getDirectory("plugins") + "MitochondriaAnalyzer/Macros/";
 	input = getTitle();
 	Stack.getDimensions(w, h, channels, slices, frames);
 	if (frames==1 || slices==1) exit("Input must be 4D (xyzt)");
