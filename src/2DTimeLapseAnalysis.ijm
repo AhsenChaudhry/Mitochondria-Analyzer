@@ -1,12 +1,12 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: July 1, 2019
+Last updated: April 27, 2022
 This macro performs analysis on a thresholded timelapse of 2D slices (xyt).
 */
 
 macro TimeLapseAnalysis2D
 {
-	macroFolder = getDirectory("plugins") + "MitochondriaAnalyzer\\Macros\\";
+	macroFolder = getDirectory("plugins") + "MitochondriaAnalyzer/Macros/";
 	input = getTitle();
 	Stack.getDimensions(w, h, channels, slices, frames);
 	if ( (slices>1 && frames>1) || (slices==1 && frames==1)) exit("Needs XYT input");
