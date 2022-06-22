@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: July 1, 2019
+Last updated: April 27, 2022
 This macro performs a threshold on a 3D stack using local threshold algorithms based on variants of mean-based thresholding.
 It takes two important parameters: block size (expressed as a diameter for Weighted Mean and as radius for the rest), and C-value.
 These parameters can be chosen using the Optimize Threshold macros.
@@ -8,7 +8,7 @@ These parameters can be chosen using the Optimize Threshold macros.
 
 macro Threshold3D
 {
-	macroFolder = getDirectory("plugins") + "MitochondriaAnalyzer\\Macros\\";
+	macroFolder = getDirectory("plugins") + "MitochondriaAnalyzer/Macros/";
 	regularMode=true;
 	batchMode = false;
 	optimizeMode = false;
