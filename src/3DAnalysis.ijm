@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: May 23, 2021
+Last updated: April 27, 2022
 This macro analyzes a thresholded 3D stack to obtain morphological and networking information.
 */
 	
