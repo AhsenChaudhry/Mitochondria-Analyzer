@@ -1,12 +1,12 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: August 12, 2021
+Last updated: June 9, 2022
 This macro allows for batch thresholding and analysis of 2D images.
 */
 
 macro Batch2D
 {
-	macroFolder = getDirectory("plugins") + "MitochondriaAnalyzer\\Macros\\";
+	macroFolder = getDirectory("plugins") + "MitochondriaAnalyzer/Macros/";
 	inputD = getDirectory("Choose which folder to analyze:");
 	outputD = inputD; 
 	suffix = ".tif";
