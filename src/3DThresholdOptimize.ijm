@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: June 1, 2019
+Last updated: April 27, 2022
 This macro performs a montage comparison of different threshold paramaters on a 3D stack.
 It takes two important parameters: block size (expressed as a diameter for Weighted Mean and as radius for the rest), and C-value.
 These values are empirically determined using this macro for each image set acquired and processed under similair conditions,
@@ -9,7 +9,7 @@ and may be used in the 3D Threshold macro.
 
 macro ThresholdOptimize3D
 {
-	macroFolder = getDirectory("plugins") + "MitochondriaAnalyzer\\Macros\\";
+	macroFolder = getDirectory("plugins") + "MitochondriaAnalyzer/Macros/";
 	input = getTitle();
 
 	//Pre-process command variables, see futher explaination later.
