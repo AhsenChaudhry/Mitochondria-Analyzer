@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: April 27, 2022
+Last updated: November 25, 2022
 This macro allows for batch thresholding and analysis of 3D stacks.
 */
 
@@ -10,6 +10,9 @@ macro NewBatch3D
 	inputD = getDirectory("Choose which folder to analyze:");
 	outputD = inputD; 
 	suffix = ".tif";
+	
+	list = getFileList(inputD);
+	if (list.length==0) exit("No images to analyze were found in this folder. Note, this function will only search for .tif files by default");
 	
 	//The default block size is set to 1.25um, which is slightly larger than the upper-range of mitochondrial sizes
 	baseSize = 1.25;
