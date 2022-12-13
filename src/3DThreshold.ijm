@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: April 27, 2022
+Last updated: November 25, 2022
 This macro performs a threshold on a 3D stack using local threshold algorithms based on variants of mean-based thresholding.
 It takes two important parameters: block size (expressed as a diameter for Weighted Mean and as radius for the rest), and C-value.
 These parameters can be chosen using the Optimize Threshold macros.
@@ -178,7 +178,8 @@ macro Threshold3D
 		//Pre-processing steps
 			//Convert values for pre-processing plugins to pixels
 			getPixelSize(unit, pixelWidth, pixelHeight);
-			sRadius = 2 * (0.06 / pixelWidth); //uses the default values of the sigma filter plugin, and scales to pixel size.
+			sRadius = 2;// * (0.06 / pixelWidth); //uses the default values of the sigma filter plugin, and scales to pixel size.
+				//I removed the scale feature as it was casuing issues with pixelwidth values >0.2 microns
 			rolling = rolling / pixelWidth;
 			maxSlices = nSlices;
 
