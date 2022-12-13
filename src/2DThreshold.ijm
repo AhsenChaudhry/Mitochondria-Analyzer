@@ -1,6 +1,6 @@
 /*
 Author: Ahsen Chaudhry
-Last updated: April 27, 2022
+Last updated: November 25, 2022
 This macro performs a threshold on a single 2D slice using local threshold algorithms based on variants of mean-based thresholding.
 It takes in two important parameters: block size (expressed as a diameter for Weighted Mean and as radius for the rest), and C-value.
 These parameters can be chosen using the Optimize Threshold macros.
@@ -166,7 +166,7 @@ macro Threshold2D
 		//Pre-processing steps
 			//Conver values for pre-processing plugins to pixels
 			getPixelSize(unit, pixelWidth, pixelHeight);
-			sRadius = 2 * (0.06 / pixelWidth); //uses the default values of the sigma filter plugin, and scales to pixel size.
+			sRadius = 2;// * (0.06 / pixelWidth); //uses the default values of the sigma filter plugin, and scales to pixel size.
 			rolling = rolling / pixelWidth;
 			adaptiveSize = (adaptiveSize / pixelWidth);
 			
