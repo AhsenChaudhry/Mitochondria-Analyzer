@@ -25,8 +25,13 @@ public class Mitochondria_Analyzer implements PlugIn, ActionListener
        is = getClass().getResourceAsStream(imagePath + "MitoAnalyzer_Logo.png");
        if (is==null) imagePath = "D:/Ahsen/Desktop/Mitochondria Analyzer/Resources/";
        //if (is==null) imagePath = System.getProperty("user.dir") + "/plugins/MitochondriaAnalyzer/Resources/";
-       
-       path = System.getProperty("user.dir") + "/plugins/MitochondriaAnalyzer/Macros/";
+                    
+       // try ImageJ's plugins.dir first, if no, fallback to user.dir
+       String pluginsDir = System.getProperty("plugins.dir");
+       if (pluginsDir == null || pluginsDir.equals("/")) {
+            pluginsDir = System.getProperty("user.dir");
+        }
+        path = pluginsDir + File.separator + "MitochondriaAnalyzer" + File.separator + "Macros" + File.separator;
 
        if (arg.equals("2D Threshold Optimize")) ThresholdOptimize2D();
        if (arg.equals("3D Threshold Optimize")) ThresholdOptimize3D();
@@ -277,4 +282,4 @@ public class Mitochondria_Analyzer implements PlugIn, ActionListener
     	else IJ.runMacroFile(path + macroName);
     }
 
-} 
+}
