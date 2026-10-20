@@ -8,7 +8,7 @@ Mitochondria Analyzer is a plugin for ImageJ/Fiji that enables quantitative anal
 
 It entails a set of commands that allows for identifying mitochondrial objects from images through a validated pipeline of processing & thresholding, extraction of morphological and networking descriptors on a per-cell or per-mito basis, and simultaneous "morpho-functional" assessment of mitochondria co-stained with structural and functional probes.
 
-This plugin facilitates some of the key steps in an overall pipeline of image-based mitochondrial analysis, which begins with rigorously optimized acquisiton conditions and deconvolution for 3D/4D files (mainly to improve axial resolution). Importantly, the pipeline and this plugin have been optimized for axially thick cells, such as pancreatic beta-cells. More details can be found in the accompanying paper.
+This plugin facilitates some of the key steps in an overall pipeline of image-based mitochondrial analysis, which begins with rigorously optimized acquisition conditions and deconvolution for 3D/4D files (mainly to improve axial resolution). Importantly, the pipeline and this plugin have been optimized for axially thick cells, such as pancreatic beta-cells. More details can be found in the accompanying paper.
 
 ## Features
 * Handles 2D, 3D, 2D Timelapse, and 3D Timelapse (4D) images
@@ -23,6 +23,10 @@ This plugin facilitates some of the key steps in an overall pipeline of image-ba
 ## Installation
 Requires the Fiji distribution of ImageJ.
 
+> **Important: use Fiji Stable (Java 8).** Mitochondria Analyzer does not work with current Fiji releases, which use Java 21; Fiji may fail to launch or report `Plugin or class not found: "Adaptive Thresholding.adaptiveThr_"` (see #30, and possibly #17). Download **Fiji Stable** from https://imagej.net/software/fiji/downloads.
+>
+> **Apple Silicon Macs (M1/M2/M3+):** Fiji Stable runs in Intel mode via Rosetta, which is required because the macOS OpenCV library is Intel-only (x86_64). Then replace `adaptiveThr_.class` and `opencv-macosx-x86_64.jar` as described below.
+
 There are 2 methods for installation.
 
 **Method 1 (Preferred)**
@@ -35,25 +39,27 @@ Add the Mitochondria Analyzer Update Site to download all required files and aut
     2) ImageScience
     3) IJPB-Plugins
         *   This contains MorphoLibJ
-4)	Press “Add Update Site’ at the bottom. This will create a new entry.
+4)	Press ‘Add Update Site’ at the bottom. This will create a new entry.
 5)	Under ‘Name’ column, type in “MitochondriaAnalyzer”
 6)	Under URL column, copy and paste this: http://sites.imagej.net/ACMito/
     *	Note: this also installs Adaptive Thresholding and Sigma Filter Plus
     *	Note: For MacOS users, please install the updated adaptiveThr_.class and opencv-macosx-x86_64.jar file from here: https://github.com/qztseng/imagej_plugins/tree/master/current
-5)	Press ‘Close’, then press ‘Apply Changes’ in the ImageJ Updater window
-6)	Restart ImageJ, and the installation process should be complete. Check if the downloaded files have been placed in the "Updates" folder in the main Fiji.app folder, and if so, transfer the contents in the "Updates" folder to the "Plugins" folder.
+    *	Note: If you ran Adaptive Thresholding before replacing these files, quit Fiji and delete the ~/.javacpp/cache folder before trying again.
+7)	Press ‘Close’, then press ‘Apply Changes’ in the ImageJ Updater window
+8)	Restart ImageJ, and the installation process should be complete. Check if the downloaded files have been placed in the "update" folder in the main Fiji.app folder, and if so, transfer the contents of the "update" folder into the matching folders in Fiji.app (e.g., update/plugins into plugins, update/jars into jars).
 
 **Method 2**
 
 Download and open the MitochondriaAnalyzer.zip file and copy its contents to the ImageJ/FIJI “plugins” folder. This includes the MitochondriaAnalyzer folder as well as the dependent plugins listed above.
 *   Then download the opencv-windows-x86_64.jar file and paste into the plugins-> Adaptive Thresholding folder.
 *   Note: For MacOS users, please install the updated adaptiveThr_.class and opencv-macosx-x86_64.jar file from here: https://github.com/qztseng/imagej_plugins/tree/master/current
+*   Note: If you ran Adaptive Thresholding before replacing these files, quit Fiji and delete the ~/.javacpp/cache folder before trying again.
 *	The imagescience.jar file (required for the 3D ImageJ Suite) must be downloaded separately here [(Link)](https://imagescience.org/meijering/software/featurej/)
 
 ## Usage
 Please refer to the Mitochondria Analyzer Manual and accompanying paper for guidance on use.
 
 ## Notes
-The plugin should now be compatible with MacOS systems as of April 2022.
+The plugin should now be compatible with MacOS systems as of April 2022. Current Fiji releases (Java 21) are not supported; see the note under Installation.
 For any bugs, issues, or concerns, please communicate these via GitHub or through the contact information specified in the Manual.
-No new major features or additions are planned for the planned for the plugin at this time.
+No new major features or additions are planned for the plugin at this time.
